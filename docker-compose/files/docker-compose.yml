@@ -1,0 +1,15 @@
+db:
+  image: mongo
+  container_name: ntugarage_db
+
+web:
+  image: xup6qup3/ntugarageweb:$CIRCLE_SHA1
+  container_name: ntugarage_web
+  links:
+    - db
+  ports:
+    - "80:3000"
+  environment:
+    - MONGODB_URL=db
+    - COOKIE_SECRET=$COOKIE_SECRET
+    - CLOUDINARY_URL=$CLOUDINARY_URL
